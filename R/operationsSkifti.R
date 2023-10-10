@@ -1,5 +1,5 @@
-require(RNifti)
-require(stringr)
+library(RNifti)
+library(stringr)
 
 #' Get subset of Skifti data
 #' 

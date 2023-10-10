@@ -1,5 +1,5 @@
-require(RNifti)
-require(stringr)
+library(RNifti)
+library(stringr)
 
 #' Write Skifti data to Comma Separated Values (CSV) file. No header is written, for 
 #' header write Skifti to ASCII format using writeSkifti.

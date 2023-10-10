@@ -1,11 +1,12 @@
-require(rmarchingcubes)
-require(RNifti)
-require(rgl)
-require(fields)
-require(abind)
-require(png)
-require(Rvcg)
-require(oce)
+library(rmarchingcubes)
+library(RNifti)
+options(rgl.useNULL=TRUE)
+library(rgl)
+library(fields)
+library(abind)
+library(png)
+library(Rvcg)
+library(oce)
 
 # Function to rotate view
 get_rot_matrix <- function(axis, angle) {

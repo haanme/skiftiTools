@@ -1,5 +1,5 @@
-require(RNifti)
-require(stringr)
+library(RNifti)
+library(stringr)
 
 #' Read Skifti data
 #' 

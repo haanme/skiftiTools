@@ -1,5 +1,5 @@
-require(RNifti)
-require(stringr)
+library(RNifti)
+library(stringr)
 
 #' Create a SKIFTI file from fsl TBSS skeleton data
 #' 
