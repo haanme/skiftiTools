@@ -23,38 +23,3 @@ Examples
 All of the following are defined within the ``docs/index.rst`` file. Here is
 some :red:`coloured` text which demonstrates how raw HTML commands can be
 incorporated. The following are examples of ``rst`` "admonitions":
-
-.. note::
-
-    Here is a note
-
-    .. warning::
-
-        With a warning inside the note
-
-.. seealso::
-
-    The full list of `'restructuredtext' directives <https://www.sphinx-doc.org/en/master/usage/restructuredtext/directives.html>`_ or a similar list of `admonitions <https://restructuredtext.documatt.com/admonitions.html>`_.
-
-.. centered:: This is a line of :red:`centered text`
-
-.. hlist::
-   :columns: 3
-
-   * and here is
-   * A list of
-   * short items
-   * that are
-   * displayed
-   * in 3 columns
-
-The remainder of this document shows three tables of contents for the main
-``README`` (under "Introduction"), and the vignettes and R directories of
-a package. These can be restructured any way you like by changing the main
-``docs/index.rst`` file. The contents of this file -- and indeed the contents
-of any `readthedocs <https://readthedocs.org>`_ file -- can be viewed by
-clicking *View page source* at the top left of any page.
-
-.. toctree::
-   :maxdepth: 1
-   :caption: Introduction:
