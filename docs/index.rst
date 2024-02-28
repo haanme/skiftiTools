@@ -7,8 +7,6 @@ skiftiTools
 
 .. raw:: html
 
-    <style> .red {color:red} </style>
-
 .. role:: red
 
 .. This main document is in `'reStructuredText' ("rst") format
