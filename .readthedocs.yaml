@@ -14,6 +14,10 @@ sphinx:
 formats:
    - pdf
 
+# Set the version of Python
+build:
+  os: ubuntu-20.04
+
 # Optionally set the version of Python and requirements required to build your docs
 python:
    version: "3.7"
