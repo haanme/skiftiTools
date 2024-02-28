@@ -12,15 +12,6 @@ skiftiTools
 .. role:: red
 
 .. This main document is in `'reStructuredText' ("rst") format
-<https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_,
-which differs in many ways from standard markdown commonly used in R packages.
-``rst`` is richer and more powerful than markdown. The remainder of this main
-document demonstrates some of the features, with links to additional ``rst``
-documentation to help you get started. The definitive argument for the benefits
-of ``rst`` over markdown is the `official language format documentation
-<https://www.python.org/dev/peps/pep-0287/>`_, which starts with a very clear
-explanation of the `benefits
-<https://www.python.org/dev/peps/pep-0287/#benefits>`_.
 
 Analysis of three and four dimensional brain imaging data in various statistical settings there is growing invitation in tools facilitating data analysis in more tool independent manner. In brain image analysis, Tract-Based Spatial Statistics (TBSS) is a conventionally used tool to make statistical calculations in voxel-space for brain imaging data. While they provide support for basic statistical tests needed in neuroscience, with larger datasets and more complex test settings, their use becomes cumbersome. More sophisticated statistical operations are not supported.
 
