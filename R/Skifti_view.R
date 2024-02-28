@@ -1,6 +1,6 @@
 library(rmarchingcubes)
 library(RNifti)
-options(rgl.useNULL=TRUE)
+#options(rgl.useNULL=TRUE)
 library(rgl)
 library(fields)
 library(abind)
@@ -116,7 +116,7 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale) {
   
   # Concatenate the images
   pngdata <- readPNG(paste('3dplot_', 1, '.png',sep=''))
-  file.remove(paste('3dplot_', 1, '.png',sep=''))
+  #file.remove(paste('3dplot_', 1, '.png',sep=''))
   d<-dim(pngdata)
   d1<-c(d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1)
   d2<-c(d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9)
@@ -125,11 +125,11 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale) {
   pngdata<-pngdata[d1[1]:d2[1], d3[1]:d4[1], ]
   for (i in 2:6) {
     pngadd <- readPNG(paste('3dplot_', i, '.png',sep=''))
-    file.remove(paste('3dplot_', i, '.png',sep=''))
+    #file.remove(paste('3dplot_', i, '.png',sep=''))
     pngdata <- abind(pngdata, pngadd[d1[i]:d2[i], d3[i]:d4[i], ], along=2)
   }
   pngadd <- readPNG(paste('3dplot_', 7, '.png',sep=''))
-  file.remove(paste('3dplot_', 7, '.png',sep=''))
+  #file.remove(paste('3dplot_', 7, '.png',sep=''))
   pngdata <- abind(pngdata, pngadd[d1[7]:d2[7], d3[7]:d4[7],], along=2)
   writePNG(pngdata, target=paste(output), metadata=sessionInfo())
 }

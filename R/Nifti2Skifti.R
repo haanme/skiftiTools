@@ -11,11 +11,12 @@ library(stringr)
 #' 
 #' @param Nifti_data Intensity data in Nifti format
 #' @param Nifti_skeleton Skeleton at same imaging space as the data, in Nifti format
-#' @param include
+#' @param start_volume starting volume
+#' @param end_volume ending volume
 #' 
 #' @export
 #'
-Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL) {
+Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, start_volume=NULL, end_volume=NULL) {
 
   if (is.null(Nifti_data)) {
     warning("`Nifti_data`, was NULL: Nothing to read!\n")
@@ -34,10 +35,9 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL) {
     warning(paste("`Nifti_skeleton`, does not exist:", Nifti_skeleton, "\n", sep=''))
     return(NULL)
   }
-  
-  img<-RNifti::readNifti(Nifti_data, internal = FALSE, volumes = NULL)
+  print(paste("Reading " , Nifti_data, sep=""))
   mask<-RNifti::readNifti(Nifti_skeleton, internal = FALSE, volumes = NULL)
-  img_hdr<-niftiHeader(img)
+  img_hdr<-RNifti::niftiHeader(Nifti_data)
   mask_hdr<-niftiHeader(mask)
   for(i in 1:3) {
     if(img_hdr$dim[i] != img_hdr$dim[i]){
@@ -49,19 +49,28 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL) {
       return(NULL)
     }
   }
-  
+
   names<-list()
   data<-NULL
-  for(i in 1:img_hdr$dim[5]) {
+  if (is.null(start_volume)) {
+      start_volume=1
+  }
+  if (is.null(end_volume)) {
+      end_volume<-img_hdr$dim[5]
+  }
+  total_volumes_to_read<-end_volume-start_volume+1
+  for(i in start_volume:end_volume) {
     names[[length(names)+1]]<-c(paste("vol",i,sep=''))
-    voldata<-img[,,,i]
-    rowdata<-voldata[mask>0]
+    img<-RNifti::readNifti(Nifti_data, internal = FALSE, volumes = c(i))
+    rowdata<-img[mask>0]
+    cat(paste("\r Reading FA data ", i-start_volume+1, "/", total_volumes_to_read, " ", names[[length(names)]], sep=""))
     if(i==1) {
       data<-data.frame(rowdata)
     } else {
       data<-cbind(data, rowdata)
     }
   }
+  print("")
   data<-t(data)
   rownames(data)<-names
   skifti<-list(reftype="filename", refdata=Nifti_skeleton, dim=mask_hdr$dim, pixdim=mask_hdr$pixdim, xform=rbind(mask_hdr$srow_x,mask_hdr$srow_y,mask_hdr$srow_z), datatype=NULL, version='0.1', data=data)

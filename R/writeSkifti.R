@@ -4,20 +4,22 @@ library(stringr)
 #' Write Skifti data
 #' 
 #' @param Skifti_data Skifti data object
-#' @param filename filename to write
+#' @param basename basename to write without suffix
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
-writeSkifti <- function(Skifti_data, filename, overwrite=FALSE, use_zip=TRUE){
+#' @param compress bz2/zip/none(default) to select compression method
+writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none"){
   if(!(class(Skifti_data)=="Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
-  }
-  if(file(filename) & (overwrite==FALSE)) {
-    stop(paste('File ', filename, ' exists, but overwrite was not selected', sep=''))
   }
   if(is.null(Skifti_data$datatype)){
     print("Datatype was NULL, using ASCII volume-per-row-ASCII")
     Skifti_data$datatype<-"volume-per-row-ASCII"
   }
   if(Skifti_data$datatype=="volume-per-row-ASCII"){
+    filename<-paste(basename, '.txt', sep='')
+    if(file(filename) & (overwrite==FALSE)) {
+      stop(paste('File ', filename, ' exists, but overwrite was not selected', sep=''))
+    }
     file.create(filename, showWarnings = FALSE)
     write(paste('#', paste(class(Skifti_data)), sep=' '), file = filename, append = TRUE, sep = " ")
     write(paste('#', paste(Skifti_data$reftype), sep=' '), file = filename, append = TRUE, sep = " ")
@@ -32,13 +34,26 @@ writeSkifti <- function(Skifti_data, filename, overwrite=FALSE, use_zip=TRUE){
       write(paste(rnames[i], paste(Skifti_data$data[i,], collapse = " "), collapse = " "), file = filename, append = TRUE, sep = " ")
     }
   } else if(Skifti_data$datatype=="binary") {
+    filename<-paste(basename, '.rDs', sep='')
+    if(file(filename) & (overwrite==FALSE)) {
+      stop(paste('File ', filename, ' exists, but overwrite was not selected', sep=''))
+    }
     saveRDS(Skifti_data, file=filename)
   } else {
-    stop(paste('Unrecognised datatype:\"', Skifti_data$datatype, "\"", sep=''))
+    stop(paste('Unrecognised datatype in skifti object:', Skifti_data$datatype, sep=''))
   }
-  if(use_zip==TRUE) {
-    R.utils::bzip2(filename, paste(filename,'.bz2',sep=''))
-    filename<-paste(filename,'.bz2',sep='')
+  if(str_detect(compress, "none")) {
+      # no action
+  } else if(str_detect(compress, "bz2")) {
+    R.utils::bzip2(filename, paste(basename,'.bz2',sep=''))
+    file.remove(filename)
+    filename<-paste(basename,'.bz2',sep='')
+  } else if(str_detect(compress, "zip")) {
+    zip(zipfile = paste(basename,'.zip',sep=''), files = filename, flags="-j")
+    file.remove(filename)
+    filename<-paste(basename,'.zip',sep='')
+  } else {
+    stop(paste('Unrecognised compress method:', compress, sep=''))
   }
   return(filename)
 }
