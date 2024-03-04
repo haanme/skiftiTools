@@ -1,7 +1,7 @@
 # Required packages
 sphinx==5.3.0
 sphinx_rtd_theme==1.1.1
-readthedocs-sphinx-search==0.3.1
+readthedocs-sphinx-search==0.3.2
 #RNifti==1.4.5
 #stringr==1.5.0
 #rmarchingcubes==0.1.3
