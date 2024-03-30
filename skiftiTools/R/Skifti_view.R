@@ -1,28 +1,12 @@
-#!/usr/bin/env Rscript
-# Copyright 2023-2024 Harri Merisaari <haanme@utu.fi>
-#  
-#  This file is free software: you may copy, redistribute and/or modify it  
-#  under the terms of the GNU General Public License as published by the  
-#  Free Software Foundation, either version 2 of the License, or (at your  
-#  option) any later version.  
-#  
-#  This file is distributed in the hope that it will be useful, but  
-#  WITHOUT ANY WARRANTY; without even the implied warranty of  
-#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU  
-#  General Public License for more details.  
-#  
-#  You should have received a copy of the GNU General Public License  
-#  along with this program.  If not, see <http://www.gnu.org/licenses/>.  
-
 library(rmarchingcubes)
 library(RNifti)
+#options(rgl.useNULL=TRUE)
 library(rgl)
 library(fields)
 library(abind)
 library(png)
 library(Rvcg)
 library(oce)
-library(s2dverification)
 
 # Function to rotate view
 get_rot_matrix <- function(axis, angle) {
@@ -50,7 +34,6 @@ get_rot_matrix <- function(axis, angle) {
   }
 }
 
-
 #' Create png from mask and data in Nifti format
 #' 
 #' Skeleton mask and corresponding image intensity data must be in Nifti format.
@@ -62,14 +45,13 @@ get_rot_matrix <- function(axis, angle) {
 #' @param output Output PNG filename
 #' @param legend_title Title to be shown
 #' @param scale scaling for intensity values, tune for better color depth
-#' @param keep_temp TRUE/FALSE(default) to keep temporary png images
 #'
 #' @export
 #'
-save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE) {
+save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale) {
   
   data<-data*scale
-  print(paste("Data extreme values for visualization min:", min(data), " max:", max(data), sep=""))
+  print(c(min(data),max(data)))
   
   x <- seq(-img_hdr$dim[2]/2*img_hdr$pixdim[2],img_hdr$dim[2]/2*img_hdr$pixdim[2],len = img_hdr$dim[2])
   y <- seq(-img_hdr$dim[3]/2*img_hdr$pixdim[3],img_hdr$dim[3]/2*img_hdr$pixdim[3],len = img_hdr$dim[3])
@@ -83,14 +65,11 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   # Interpolate surface on the intensity data
   mesh_i <- approx3d(x, y, z, data, contour_shape$vertices[,1], contour_shape$vertices[,2], contour_shape$vertices[,3])
   mesh_i_lim <- range(mesh_i)
-  Ticks<-seq(mesh_i_lim[1]*0.99,mesh_i_lim[2]*1.01,length.out = 39)
-  print(paste("Extreme values at surface mesh for visualization min:", mesh_i_lim[1], " max:", mesh_i_lim[2], sep=""))
+  print(mesh_i_lim)
   mesh_i_len <- mesh_i_lim[2] - mesh_i_lim[1] + 1
   colorlut <- hcl.colors(mesh_i_len, palette = "viridis", alpha = NULL, rev = FALSE, fixup = TRUE)
   #colorlut <- hcl.colors(mesh_i_len, palette = "YlOrRd", alpha = NULL, rev = FALSE, fixup = TRUE)
-  col <- colorlut[ mesh_i - mesh_i_lim[1] ]
-  Tickscol <- seq(0.0, mesh_i_lim[2]-mesh_i_lim[1],length.out = 39)
-  Tickscol <- colorlut[ Tickscol ]
+  col <- colorlut[ mesh_i - mesh_i_lim[1] + 1 ]
 
   vertices_h <- t(cbind(contour_shape$vertices, rep(1, nrow(contour_shape$vertices))))
   faces_h <- t(contour_shape$triangles)
@@ -106,7 +85,15 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   
   # Draw the mesh.
   mesh_col <- rgl::shade3d(mesh, meshColor = "vertices", specular="black")
-
+  Min<-mesh_i_lim[1]/scale
+  Max<-mesh_i_lim[2]/scale
+  Tick_step<-(Max-Min)/9
+  Ticks<-seq(Min,Max,Tick_step)
+  Ticks_str<-c()
+  for (i in 1:length(Ticks)) {
+    Ticks_str<-c(Ticks_str, sprintf("%.1f", Ticks[i]))
+  }
+  
   # Create views
   options(rgl.useNULL = FALSE)
   um<-list()
@@ -119,46 +106,30 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   for (i in 1:6) {
     rgl::view3d(userMatrix=um[[i]], fov = 60, zoom = 1.0, interactive = FALSE, type = "modelviewpoint")
     rgl.snapshot(paste('3dplot_', i, '.png',sep=''), fmt = 'png')
+    #rgl.postscript(paste('3dplot_', i, '.svg',sep=''), fmt = 'svg')
   }
-
-  rgl::clear3d()
-  rgl::bgplot3d(ColorBar(brks=Ticks/scale, cols=Tickscol, 
-                         title=legend_title, title_scale = 4.0, 
-                         tick_scale = 0.0, label_digits=3, label_scale=4.0, lwd=8.0))
+  rgl::clear3d() 
+  rgl::bgplot3d(suppressWarnings(fields::image.plot(legend.only=TRUE, legend.args=list(text=legend_title,cex = 4, side = 2, line = 0.1), zlim=(c(Min,Max)),col=colorlut,axis.args = list(at = 0:(length(Ticks_str)-1), labels=Ticks_str)))) 
   rgl.snapshot(paste('3dplot_', 7, '.png',sep=''), fmt = 'png')
   #rgl.postscript(paste('3dplot_', 7, '.svg',sep=''), fmt = 'svg')
   rgl::close3d()
   
   # Concatenate the images
   pngdata <- readPNG(paste('3dplot_', 1, '.png',sep=''))
-  if(keep_temp==FALSE) {
-    file.remove(paste('3dplot_', 1, '.png',sep=''))
-  }
+  #file.remove(paste('3dplot_', 1, '.png',sep=''))
   d<-dim(pngdata)
   d1<-c(d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1,d[1]*0.1)
   d2<-c(d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9,d[1]*0.9)
-  d3<-c(d[2]*0.2,d[2]*0.2,d[2]*0.2,d[2]*0.2,d[2]*0.15,d[2]*0.15,d[2]*0.1)
-  d4<-c(d[2]*0.8,d[2]*0.8,d[2]*0.8,d[2]*0.8,d[2]*0.85,d[2]*0.85,d[2]*0.9)
+  d3<-c(d[2]*0.2,d[2]*0.2,d[2]*0.2,d[2]*0.2,d[2]*0.15,d[2]*0.15,d[2]*0.75)
+  d4<-c(d[2]*0.8,d[2]*0.8,d[2]*0.8,d[2]*0.8,d[2]*0.85,d[2]*0.85,d[2]*1.0)
   pngdata<-pngdata[d1[1]:d2[1], d3[1]:d4[1], ]
   for (i in 2:6) {
     pngadd <- readPNG(paste('3dplot_', i, '.png',sep=''))
-    if(keep_temp==FALSE) {
-      file.remove(paste('3dplot_', i, '.png',sep=''))
-    }
+    #file.remove(paste('3dplot_', i, '.png',sep=''))
     pngdata <- abind(pngdata, pngadd[d1[i]:d2[i], d3[i]:d4[i], ], along=2)
   }
   pngadd <- readPNG(paste('3dplot_', 7, '.png',sep=''))
-  # pad 3D shape images to match color bar size
-  yoffset<-dim(pngadd)[1]-dim(pngdata)[1]
-  yoffset_modulo<-(yoffset %% 2)
-  ypad_lo<-(yoffset-yoffset_modulo)/2+yoffset_modulo
-  ypad_hi<-(yoffset-yoffset_modulo)/2
-  ypad_lo<-array(1, c(ypad_lo, dim(pngdata)[2], 3))
-  ypad_hi<-array(1, c(ypad_hi, dim(pngdata)[2], 3))
-  pngdata<-abind(ypad_lo, pngdata, ypad_hi, along=1)
-  pngdata <- abind(pngdata, pngadd[,d3[7]:(d[2]*0.3),], pngadd[,(d[2]*0.6):d4[7],], along=2)
-  if(keep_temp==FALSE) {
-    file.remove(paste('3dplot_', 7, '.png',sep=''))
-  }
+  #file.remove(paste('3dplot_', 7, '.png',sep=''))
+  pngdata <- abind(pngdata, pngadd[d1[7]:d2[7], d3[7]:d4[7],], along=2)
   writePNG(pngdata, target=paste(output), metadata=sessionInfo())
 }

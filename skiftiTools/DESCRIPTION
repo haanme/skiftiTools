@@ -1,12 +1,22 @@
 Package: skiftiTools
-Title: What the Package Does (One Line, Title Case)
-Version: 0.0.0.9000
+Title: Tools and operations for Reading, Writing, Viewing, and Manipulating SKIFTI Files
+Version: 0.0.1.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Harri", "Merisaari", ,"harri.merisaaari@utu.fi", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-8515-5399"))
+Description: SKIFTI files contain brain imaging data in coordinates across Tract Based Spatial Statistics (TBSS) skeleton, which 
+    represent the brain white matter intensity values. 
+    'skiftiTools' provides a unified environment for reading, writing, 
+    visualizing and manipulating SKIFTI-format data. It supports the "subsetting", 
+    "concatenating", and using data as data.frame for R statistical functions. The SKFITI data is structured for convenient access to the data and metadata,
+    and includes support for visualizations.
+Depends: R (>= 4.2.3)
+License: use_gpl3_license()
 Encoding: UTF-8
+Imports:
+  RNifti,
+  stringr,
+  R.utils
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+URL: https://gitlab.utu.fi/haanme/lifespan_dti

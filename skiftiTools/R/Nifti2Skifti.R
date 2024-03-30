@@ -11,11 +11,12 @@ library(stringr)
 #' 
 #' @param Nifti_data Intensity data in Nifti format
 #' @param Nifti_skeleton Skeleton at same imaging space as the data, in Nifti format
-#' @param selected_volumes Selected volume indexes starting from 1
+#' @param start_volume starting volume
+#' @param end_volume ending volume
 #' 
-#' @export skifti object with default rownames as vol1, vol2 .... volN as indexes from the nifti data
+#' @export
 #'
-Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=NULL) {
+Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, start_volume=NULL, end_volume=NULL) {
 
   if (is.null(Nifti_data)) {
     warning("`Nifti_data`, was NULL: Nothing to read!\n")
@@ -51,25 +52,18 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=
 
   names<-list()
   data<-NULL
-  if(is.null(selected_volumes)) {
-    total_volumes_to_read<-img_hdr$dim[5]
-  } else {
-    total_volumes_to_read<-length(selected_volumes)
+  if (is.null(start_volume)) {
+      start_volume=1
   }
-  for(i in 1:total_volumes_to_read) {
-    if(is.null(selected_volumes)) {
-      ii<-i
-    } else {
-      ii<-selected_volumes[i]
-      if(ii < 1 | ii > img_hdr$dim[5]) {
-        error(paste('Selected volume index ', ii, ' out of bounds [1..', img_hdr$dim[5], ']', sep=' '))
-        return(NULL)
-      }
-    }
-    names[[length(names)+1]]<-c(paste("vol", ii, sep=''))
-    img<-RNifti::readNifti(Nifti_data, internal = FALSE, volumes = c(ii))
+  if (is.null(end_volume)) {
+      end_volume<-img_hdr$dim[5]
+  }
+  total_volumes_to_read<-end_volume-start_volume+1
+  for(i in start_volume:end_volume) {
+    names[[length(names)+1]]<-c(paste("vol",i,sep=''))
+    img<-RNifti::readNifti(Nifti_data, internal = FALSE, volumes = c(i))
     rowdata<-img[mask>0]
-    cat(paste("\r Reading Nifti data ", i, "/", total_volumes_to_read, " ", names[[length(names)]], sep=""))
+    cat(paste("\r Reading FA data ", i-start_volume+1, "/", total_volumes_to_read, " ", names[[length(names)]], sep=""))
     if(i==1) {
       data<-data.frame(rowdata)
     } else {
