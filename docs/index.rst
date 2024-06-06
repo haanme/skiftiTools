@@ -26,7 +26,7 @@ Examples
       1.1.2. Create list of subject names to run e g::
          $ for f $(ls output); do echo $($f | awk -F'. '{print $1}'); done > caselist.txt
 
-      1.1.3. Run ants TBSS with docker to create TBSS results to subfolder 'out'::
+   1.1.3. Run ants TBSS with docker to create TBSS results to subfolder 'out'::
          $ docker run -it --rm haanme/ants_tbss:0.4.2 -i $(pwd)/tractoinferno_FA -c caselist.txt --modality FA --enigma -o 
          $(pwd)/out
 
