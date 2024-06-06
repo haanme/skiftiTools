@@ -20,7 +20,9 @@ skiftiTools provides a versatile package facilitating use of vast amount of stat
 Examples
 --------
 
-All of the following are defined within the ``docs/index.rst`` file.:: 
+1. Using together with ants TBSS toolbox:
 
+Align data to ENIGMA template::
+   
    Here is some :red:`coloured` text which demonstrates how raw HTML commands can be
    incorporated. The following are examples of ``rst`` "admonitions":
