@@ -70,7 +70,7 @@ p<-ggplot(df_eigenvalues, aes(x=x, y=y)) +
   ylab('Cumulative percentage of variances')
 ggsave('FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png')
 ```
-[<img src="./FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png" height="150"/>](./FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png)
+[<img src="./FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png" height="250"/>](./FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png)
 ```sh
 # Write statistics into a file
 mask<-RNifti::readNifti(maskfile, internal = FALSE, volumes = NULL)  
@@ -83,7 +83,7 @@ dim(a)<-img_hdr$dim[2:4]
 dim(mask)<-img_hdr$dim[2:4]
 save_skeleton(mask, a, img_hdr, "./FENS/FENS_stat_example1_tracktoinferno_comp1_voxelcontribution.png", "FA comp1", 100000)
 ```
-[<img src="./FENS_stat_example1_tracktoinferno_comp1_voxelcontribution.png" height="150"/>](./FENS_stat_example1_tracktoinferno_comp1_voxelcontribution.png)
+[<img src="./FENS_stat_example1_tracktoinferno_comp1_voxelcontribution.png" height="250"/>](./FENS_stat_example1_tracktoinferno_comp1_voxelcontribution.png)
 
 [1] https://enigma.ini.usc.edu/protocols/dti-protocols/ [2] https://github.com/trislett/ants_tbss
 
