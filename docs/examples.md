@@ -70,7 +70,7 @@ p<-ggplot(df_eigenvalues, aes(x=x, y=y)) +
   ylab('Cumulative percentage of variances')
 ggsave('FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png')
 ```
-<img src="file://FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png" alt="Cumulative PCA percentages" height="200"/>
+[<img src="./FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png" height="150"/>](./FENS_stat_example1_tracktoinferno_PCA_cumulative_percantages.png)
 ```sh
 # Write statistics into a file
 mask<-RNifti::readNifti(maskfile, internal = FALSE, volumes = NULL)  
