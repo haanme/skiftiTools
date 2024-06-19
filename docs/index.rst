@@ -28,3 +28,4 @@ Examples
 --------
 
 :doc:`examples <../examples.md>` 
+:doc:`../examples.md`
