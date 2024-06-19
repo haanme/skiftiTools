@@ -32,7 +32,7 @@ This will create filename called UNKNOWN_FA_Skiftidata.zip
 
 - 1.1.4 Run ants TBSS with docker to create TBSS results to subfolder ‘out’:
 
-Use the following script, where 'postprocess_output' is the location where skifti file was craeted in the previous step.
+Use the following script, where 'postprocess_output' is the location where skifti file was created in the previous step.
 ```sh
 source('Skifti_view.R')
 source('Nifti2Skifti.R')
