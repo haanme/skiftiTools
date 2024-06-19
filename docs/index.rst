@@ -29,3 +29,4 @@ Examples
 
 :doc:`examples <../examples.md>` 
 :doc:`../examples.md`
+`Optional Link text <../examples.md>`_
