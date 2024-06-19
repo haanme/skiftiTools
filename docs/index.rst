@@ -26,4 +26,4 @@ skiftiTools provides a versatile package facilitating use of vast amount of stat
 Examples
 ================================
 
-See `here <./examples.md>`_
+See `here <examples.md>`_
