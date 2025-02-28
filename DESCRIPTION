@@ -8,7 +8,7 @@ Description: SKIFTI files contain brain imaging data in coordinates across Tract
     represent the brain white matter intensity values. 
     'skiftiTools' provides a unified environment for reading, writing, 
     visualizing and manipulating SKIFTI-format data. It supports the "subsetting", 
-    "concatenating", and using data as data.frame for R statistical functions. The SKFITI data is structured for convenient access to the data and metadata,
+    "concatenating", and using data as data.frame for R statistical functions. The SKIFTI data is structured for convenient access to the data and metadata,
     and includes support for visualizations.
 Depends: R (>= 4.2.3)
 License: use_gpl3_license()
@@ -19,4 +19,4 @@ Imports:
   R.utils
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
-URL: https://gitlab.utu.fi/haanme/lifespan_dti
+URL: https://github.com/haanme/skiftiTools
