@@ -24,7 +24,8 @@ library(stringr)
 #' @param Nifti_skeleton Skeleton at same imaging space as the data, in Nifti format
 #' @param selected_volumes Selected volume indexes starting from 1
 #' 
-#' @export skifti object with default rownames as vol1, vol2 .... volN as indexes from the nifti data
+#' @return skifti object with default rownames as vol1, vol2 .... volN as indexes from the nifti data
+#' @export
 #'
 Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=NULL) {
 
