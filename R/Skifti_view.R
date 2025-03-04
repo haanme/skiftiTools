@@ -11,6 +11,8 @@
 
 library(rmarchingcubes)
 library(RNifti)
+# running rgl in system without graphics support
+options(rgl.useNULL = TRUE)
 library(rgl)
 library(fields)
 library(abind)
