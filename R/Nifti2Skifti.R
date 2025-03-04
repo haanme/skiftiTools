@@ -25,6 +25,7 @@ library(stringr)
 #' @param selected_volumes Selected volume indexes starting from 1
 #' 
 #' @return skifti object with default rownames as vol1, vol2 .... volN as indexes from the nifti data
+#' @importFrom RNifti niftiHeader
 #' @export
 #'
 Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=NULL) {
@@ -52,11 +53,11 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=
   mask_hdr<-niftiHeader(mask)
   for(i in 1:3) {
     if(img_hdr$dim[i] != img_hdr$dim[i]){
-      error(paste('Dimensions of data and skeleton mask do not match ', img_hdr$dim[i], img_hdr$dim[i], sep=' '))
+      print(paste('Dimensions of data and skeleton mask do not match ', img_hdr$dim[i], img_hdr$dim[i], sep=' '))
       return(NULL)
     }
     if(img_hdr$pixdim[i] != img_hdr$pixdim[i]){
-      error(paste('Dimensions of data and skeleton mask do not match ', img_hdr$pixdim[i], img_hdr$pixdim[i], sep=' '))
+      print(paste('Dimensions of data and skeleton mask do not match ', img_hdr$pixdim[i], img_hdr$pixdim[i], sep=' '))
       return(NULL)
     }
   }
@@ -74,7 +75,7 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=
     } else {
       ii<-selected_volumes[i]
       if(ii < 1 | ii > img_hdr$dim[5]) {
-        error(paste('Selected volume index ', ii, ' out of bounds [1..', img_hdr$dim[5], ']', sep=' '))
+        print(paste('Selected volume index ', ii, ' out of bounds [1..', img_hdr$dim[5], ']', sep=' '))
         return(NULL)
       }
     }
