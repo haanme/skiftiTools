@@ -21,8 +21,8 @@ library(stringr)
 #' @inheritSection labels_Description Label Levels
 #' 
 #' @param Skifti_data Intensity data in Nifti format
-#' @param include
 #' 
+#' @importFrom RNifti niftiHeader
 #' @export
 #'
 Skifti2Nifti <- function(Skifti_data){
