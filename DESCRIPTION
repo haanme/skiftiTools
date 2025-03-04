@@ -2,9 +2,9 @@ Package: skiftiTools
 Title: Tools and operations for Reading, Writing, Viewing, and Manipulating SKIFTI Files
 Version: 0.0.1.9000
 Authors@R: 
-    person("Harri", "Merisaari","harri.merisaaari@utu.fi", role = c("aut"),
+    person("Harri", "Merisaari",,"harri.merisaaari@utu.fi", role = c("aut"),
            comment = c(ORCID = "0000-0002-8515-5399")),
-    person("Ilkka", "Suuronen","ilksuu@utu.fi", role = c("cre"),
+    person("Ilkka", "Suuronen",,"ilksuu@utu.fi", role = c("cre"),
            comment = c(ORCID = "0009-0001-6516-4116"))
 Description: SKIFTI files contain brain imaging data in coordinates across Tract Based Spatial Statistics (TBSS) skeleton, which 
     represent the brain white matter intensity values. 
