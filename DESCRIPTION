@@ -19,7 +19,7 @@ Imports:
   RNifti,
   stringr,
   R.utils,
-  rmarchinggcubes,
+  rmarchingcubes,
   Rvcg,
   png,
   rgl
