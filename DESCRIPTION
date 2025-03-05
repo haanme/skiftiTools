@@ -20,7 +20,7 @@ Imports:
   stringr,
   R.utils,
   rmarchinggcubes,
-  Rvc,
+  Rvcg,
   png,
   rgl
 Roxygen: list(markdown = TRUE)
