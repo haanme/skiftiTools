@@ -19,8 +19,8 @@ Imports:
   RNifti,
   stringr,
   R.utils,
-  rmarchingcubes,
-  Rvgc,
+  rmarchinggcubes,
+  Rvc,
   png,
   rgl
 Roxygen: list(markdown = TRUE)
