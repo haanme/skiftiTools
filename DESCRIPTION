@@ -13,7 +13,7 @@ Description: SKIFTI files contain brain imaging data in coordinates across Tract
     "concatenating", and using data as data.frame for R statistical functions. The SKIFTI data is structured for convenient access to the data and metadata,
     and includes support for visualizations.
 Depends: R (>= 4.2.3)
-License: use_gpl_license()
+License: GPL-3
 Encoding: UTF-8
 Imports:
   RNifti,
