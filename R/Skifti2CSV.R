@@ -19,7 +19,6 @@ library(stringr)
 #' If optional label file is given, that is used to label the voxels.
 #' 
 #' @param Skifti_data Intensity data in Nifti format
-#' @param include
 #' 
 #' @export
 #'
