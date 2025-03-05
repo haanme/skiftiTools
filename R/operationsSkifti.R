@@ -12,7 +12,7 @@
 #' Get subset of Skifti data
 #' 
 #' @param Skifti_data Skifti data object
-#' @param volumes selected volumes in [1..dim(Skifti_data$data)[1]]
+#' @param volumes selected volumes in [1.. number of subjects in Skifti_data]
 #' 
 #' @export
 subset <- function(Skifti_data, volumes){
@@ -34,8 +34,8 @@ subset <- function(Skifti_data, volumes){
 
 #' Concatenate Skifti data
 #' 
-#' @param Skifti_data Skifti data object1
-#' @param Skifti_data Skifti data object2
+#' @param Skifti_data1 Skifti data object1
+#' @param Skifti_data2 Skifti data object2
 #' 
 #' @export
 concat <- function(Skifti_data1, Skifti_data2){
