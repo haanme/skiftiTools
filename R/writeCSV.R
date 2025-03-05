@@ -7,10 +7,7 @@
 #
 # You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 #
-# Copyright 2024 Harri Merisaari
-
-library(RNifti)
-library(stringr)
+# Copyright 2025 Turku Brain and Mind Center
 
 #' Write Skifti data to Comma Separated Values (CSV) file. No header is written, for 
 #' header write Skifti to ASCII format using writeSkifti.
@@ -18,7 +15,9 @@ library(stringr)
 #' @param Skifti_data Skifti data object
 #' @param filename filename to write
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
-#' @param sep separator to be used between values, default=','
+#' @param sep separator to be used between vales, default=','
+#' 
+#' @export
 writeCSV <- function(Skifti_data, filename, overwrite=FALSE, sep=','){
   if(!(class(Skifti_data)=="Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    

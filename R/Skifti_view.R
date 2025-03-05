@@ -63,6 +63,9 @@ get_rot_matrix <- function(axis, angle) {
 #' @param palette 
 #'
 #' @importFrom rmarchingcubes contour3d
+#' @importFrom rgl open3d par3d tmesh3d shade3d bgplot3d view3d snapshot close3d
+#' @importFrom Rvcg vcgSmooth
+#' @importFrom png writePNG readPNG
 #' @export
 #'
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla") {

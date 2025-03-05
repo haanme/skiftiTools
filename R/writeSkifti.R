@@ -9,7 +9,6 @@
 #
 # Copyright 2025 Turku Brain and Mind Center
 
-library(RNifti)
 library(stringr)
 
 #' Write Skifti data
@@ -18,6 +17,10 @@ library(stringr)
 #' @param basename basename to write without suffix
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
 #' @param compress bz2/zip/none(default) to select compression method
+#' 
+#' @importFrom stringr str_detect
+#' @importFrom utils zip
+#' @export
 writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none"){
   if(!(class(Skifti_data)=="Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    

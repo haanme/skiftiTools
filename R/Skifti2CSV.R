@@ -7,10 +7,9 @@
 #
 # You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 #
-# Copyright 2024 Harri Merisaari
+# Copyright 2025 Turku Brain and Mind Center
 
 library(RNifti)
-library(stringr)
 
 #' Create a Nifti file from Skifti data
 #' 
@@ -20,6 +19,7 @@ library(stringr)
 #' 
 #' @param Skifti_data Intensity data in Nifti format
 #' 
+#' @importFrom RNifti readNifti
 #' @export
 #'
 Skifti2Nifti <- function(Skifti_data){

@@ -9,13 +9,12 @@
 #
 # Copyright 2025 Turku Brain and Mind Center
 
-library(RNifti)
-library(stringr)
-
 #' Get subset of Skifti data
 #' 
 #' @param Skifti_data Skifti data object
 #' @param volumes selected volumes in [1..dim(Skifti_data$data)[1]]
+#' 
+#' @export
 subset <- function(Skifti_data, volumes){
   if(!(class(Skifti_data)=="Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
@@ -37,6 +36,8 @@ subset <- function(Skifti_data, volumes){
 #' 
 #' @param Skifti_data Skifti data object1
 #' @param Skifti_data Skifti data object2
+#' 
+#' @export
 concat <- function(Skifti_data1, Skifti_data2){
   if(!(class(Skifti_data1)=="Skifti")) {
     stop(paste('Skifti class expected for parameter 1, but', class(Skifti_data1), 'was given',sep=''))    

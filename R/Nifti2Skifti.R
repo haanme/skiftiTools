@@ -10,7 +10,6 @@
 # Copyright 2025 Turku Brain and Mind Center
 
 library(RNifti)
-library(stringr)
 
 #' Create a SKIFTI file from fsl TBSS skeleton data
 #' 
@@ -23,7 +22,7 @@ library(stringr)
 #' @param selected_volumes Selected volume indexes starting from 1
 #' 
 #' @return skifti object with default rownames as vol1, vol2 .... volN as indexes from the nifti data
-#' @importFrom RNifti niftiHeader
+#' @importFrom RNifti niftiHeader readNifti
 #' @export
 #'
 Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=NULL) {

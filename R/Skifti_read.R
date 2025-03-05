@@ -8,12 +8,14 @@
 #
 # Copyright 2025 Turku Brain and Mind Center
 
-library(RNifti)
 library(stringr)
 
 #' Read Skifti data
 #' 
 #' @param filename file to read
+#' 
+#' @importFrom stringr str_detect str_replace
+#' @export
 readSkifti <- function(filename){
   if(!file(filename)) {
     stop(paste('File ', filename, ' does not exist', sep=''))
