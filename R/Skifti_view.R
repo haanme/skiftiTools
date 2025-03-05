@@ -62,6 +62,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @param keep_temp TRUE/FALSE(default) to keep temporary png images
 #' @param palette 
 #'
+#' @importFrom rmarchingcubes contour3d
 #' @export
 #'
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla") {
