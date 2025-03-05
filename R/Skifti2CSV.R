@@ -18,8 +18,6 @@ library(stringr)
 #' The skeleton mask is used to determine the coordinates of intensity data.
 #' If optional label file is given, that is used to label the voxels.
 #' 
-#' @inheritSection labels_Description Label Levels
-#' 
 #' @param Skifti_data Intensity data in Nifti format
 #' @param include
 #' 

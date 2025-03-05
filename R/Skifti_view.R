@@ -7,19 +7,19 @@
 #
 # You should have received a copy of the GNU General Public License along with Foobar. If not, see <https://www.gnu.org/licenses/>.
 #
-# Copyright 2024 Harri Merisaari
+# Copyright 2025 Turku Brain and Mind Center
 
 library(rmarchingcubes)
 library(RNifti)
 # running rgl in system without graphics support
-options(rgl.useNULL = TRUE)
+#options(rgl.useNULL = TRUE)
 library(rgl)
 library(fields)
 library(abind)
 library(png)
 library(Rvcg)
-library(oce)
-library(s2dverification)
+#library(oce)
+#library(s2dverification)
 
 # Function to rotate view
 get_rot_matrix <- function(axis, angle) {
@@ -60,6 +60,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @param legend_title Title to be shown
 #' @param scale scaling for intensity values, tune for better color depth
 #' @param keep_temp TRUE/FALSE(default) to keep temporary png images
+#' @param palette 
 #'
 #' @export
 #'
