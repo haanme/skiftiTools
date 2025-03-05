@@ -60,7 +60,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @param legend_title Title to be shown
 #' @param scale scaling for intensity values, tune for better color depth
 #' @param keep_temp TRUE/FALSE(default) to keep temporary png images
-#' @param palette 
+#' @param palette color palette
 #'
 #' @importFrom rmarchingcubes contour3d
 #' @importFrom rgl open3d par3d tmesh3d shade3d bgplot3d view3d snapshot close3d

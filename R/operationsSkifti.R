@@ -12,8 +12,8 @@
 #' Get subset of Skifti data
 #' 
 #' @param Skifti_data Skifti data object
-#' @param volumes selected volumes in [1.. number of subjects in Skifti_data]
-#' 
+#' @param volumes selection
+#'
 #' @export
 subset <- function(Skifti_data, volumes){
   if(!(class(Skifti_data)=="Skifti")) {
