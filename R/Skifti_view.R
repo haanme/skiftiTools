@@ -17,7 +17,7 @@ library(abind)
 library(png)
 library(Rvcg)
 library(oce)
-#library(s2dverification)
+library(s2dv)
 
 # Function to rotate view
 get_rot_matrix <- function(axis, angle) {
@@ -68,7 +68,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @importFrom grDevices hcl.colors
 #' @importFrom utils sessionInfo
 #' @importFrom abind abind
-#' @importFrom s2dverification ColorBar
+#' @importFrom s2dv ColorBar
 #' 
 #' @export
 #'
@@ -151,7 +151,7 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   }
 
   rgl::clear3d()
-  rgl::bgplot3d(s2dverification::ColorBar(brks=Ticks/scale, cols=Tickscol, 
+  rgl::bgplot3d(s2dv::ColorBar(brks=Ticks/scale, cols=Tickscol, 
                          title=legend_title, title_scale = 4.0, 
                          tick_scale = 0.0, label_digits=3, label_scale=4.0, lwd=8.0))
   rgl::rgl.snapshot(paste('3dplot_', 7, '.png',sep=''), fmt = 'png')
