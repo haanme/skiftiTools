@@ -11,14 +11,12 @@
 
 library(rmarchingcubes)
 library(RNifti)
-# running rgl in system without graphics support
-#options(rgl.useNULL = TRUE)
 library(rgl)
 library(fields)
 library(abind)
 library(png)
 library(Rvcg)
-#library(oce)
+library(oce)
 #library(s2dverification)
 
 # Function to rotate view
@@ -63,9 +61,15 @@ get_rot_matrix <- function(axis, angle) {
 #' @param palette color palette
 #'
 #' @importFrom rmarchingcubes contour3d
-#' @importFrom rgl open3d par3d tmesh3d shade3d bgplot3d view3d snapshot close3d
+#' @importFrom rgl open3d par3d tmesh3d shade3d bgplot3d view3d close3d rgl.snapshot
 #' @importFrom Rvcg vcgSmooth
 #' @importFrom png writePNG readPNG
+#' @importFrom oce approx3d
+#' @importFrom grDevices hcl.colors
+#' @importFrom utils sessionInfo
+#' @importFrom abind abind
+#' @importFrom s2dverification ColorBar
+#' 
 #' @export
 #'
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla") {
@@ -104,22 +108,13 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   print(length(contour_shape$vertices[,3]))
   mesh_i <- approx3d(x, y, z, data, contour_shape$vertices[,1], contour_shape$vertices[,2], contour_shape$vertices[,3])
   mesh_i <- round(mesh_i)+1
-  print(unique(round(mesh_i)))  
-  #mesh_i <- approx3d(x, y, z, data, contour_shape$vertices[,1], contour_shape$vertices[,2], contour_shape$vertices[,3])
   mesh_i_lim <- range(mesh_i)
   Ticks<-seq(mesh_i_lim[1]*0.99,mesh_i_lim[2]*1.01,length.out = 39)
   print(paste("Extreme values at surface mesh for visualization min:", mesh_i_lim[1], " max:", mesh_i_lim[2], sep=""))
   mesh_i_len <- mesh_i_lim[2] - mesh_i_lim[1] + 1
   print(mesh_i_len)
   colorlut <- hcl.colors(mesh_i_len, palette = palette, alpha = NULL, rev = FALSE, fixup = TRUE)
-  #colorlut <- hcl.colors(mesh_i_len, palette = "YlOrRd", alpha = NULL, rev = FALSE, fixup = TRUE)
-  print(colorlut)
   col<-colorlut[mesh_i]
-#  col<-c()
-#  for(mi in 1:length(mesh_i)) {
-#    col <- c(col, colorlut[mesh_i[mi]])
-#  }
-#  col <- colorlut[ mesh_i - mesh_i_lim[1] ]
   print(length(col))
   Tickscol <- seq(0.0, mesh_i_lim[2]-mesh_i_lim[1],length.out = 39)
   Tickscol <- colorlut[ Tickscol ]
@@ -156,11 +151,10 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   }
 
   rgl::clear3d()
-  rgl::bgplot3d(ColorBar(brks=Ticks/scale, cols=Tickscol, 
+  rgl::bgplot3d(s2dverification::ColorBar(brks=Ticks/scale, cols=Tickscol, 
                          title=legend_title, title_scale = 4.0, 
                          tick_scale = 0.0, label_digits=3, label_scale=4.0, lwd=8.0))
-  rgl.snapshot(paste('3dplot_', 7, '.png',sep=''), fmt = 'png')
-  #rgl.postscript(paste('3dplot_', 7, '.svg',sep=''), fmt = 'svg')
+  rgl::rgl.snapshot(paste('3dplot_', 7, '.png',sep=''), fmt = 'png')
   rgl::close3d()
   
   # Concatenate the images

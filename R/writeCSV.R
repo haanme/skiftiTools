@@ -9,6 +9,8 @@
 #
 # Copyright 2025 Turku Brain and Mind Center
 
+library(methods)
+
 #' Write Skifti data to Comma Separated Values (CSV) file. No header is written, for 
 #' header write Skifti to ASCII format using writeSkifti.
 #' 
@@ -17,9 +19,10 @@
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
 #' @param sep separator to be used between vales, default=','
 #' 
+#' @importFrom methods is
 #' @export
 writeCSV <- function(Skifti_data, filename, overwrite=FALSE, sep=','){
-  if(!(class(Skifti_data)=="Skifti")) {
+  if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
   }
   if(file(filename) & (overwrite==FALSE)) {

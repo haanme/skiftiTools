@@ -10,6 +10,7 @@
 # Copyright 2025 Turku Brain and Mind Center
 
 library(stringr)
+library(methods)
 
 #' Write Skifti data
 #' 
@@ -20,9 +21,10 @@ library(stringr)
 #' 
 #' @importFrom stringr str_detect
 #' @importFrom utils zip
+#' @importFrom methods is
 #' @export
 writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none"){
-  if(!(class(Skifti_data)=="Skifti")) {
+  if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
   }
   if(is.null(Skifti_data$datatype)){
