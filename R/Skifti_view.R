@@ -12,7 +12,6 @@
 library(rmarchingcubes)
 library(RNifti)
 library(rgl)
-library(fields)
 library(abind)
 library(png)
 library(Rvcg)
@@ -87,35 +86,14 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   contour_shape <- rmarchingcubes::contour3d(griddata = mask, level = mask_th, x = x, y = y, z = z)
   
   # Interpolate surface on the intensity data
-  #f <- array(rep(rep(1:length(z),length(y)),length(x)), dim = c(length(x), length(y), length(z)))
-  print(min(x))
-  print(max(x))
-  print(length(x))
-  print(min(y))
-  print(max(y))
-  print(length(y))
-  print(min(z))
-  print(max(z))
-  print(length(z))
-  print(min(contour_shape$vertices[,1]))
-  print(max(contour_shape$vertices[,1]))
-  print(length(contour_shape$vertices[,1]))
-  print(min(contour_shape$vertices[,2]))
-  print(max(contour_shape$vertices[,2]))
-  print(length(contour_shape$vertices[,2]))
-  print(min(contour_shape$vertices[,3]))
-  print(max(contour_shape$vertices[,3]))
-  print(length(contour_shape$vertices[,3]))
   mesh_i <- approx3d(x, y, z, data, contour_shape$vertices[,1], contour_shape$vertices[,2], contour_shape$vertices[,3])
   mesh_i <- round(mesh_i)+1
   mesh_i_lim <- range(mesh_i)
   Ticks<-seq(mesh_i_lim[1]*0.99,mesh_i_lim[2]*1.01,length.out = 39)
   print(paste("Extreme values at surface mesh for visualization min:", mesh_i_lim[1], " max:", mesh_i_lim[2], sep=""))
   mesh_i_len <- mesh_i_lim[2] - mesh_i_lim[1] + 1
-  print(mesh_i_len)
   colorlut <- hcl.colors(mesh_i_len, palette = palette, alpha = NULL, rev = FALSE, fixup = TRUE)
   col<-colorlut[mesh_i]
-  print(length(col))
   Tickscol <- seq(0.0, mesh_i_lim[2]-mesh_i_lim[1],length.out = 39)
   Tickscol <- colorlut[ Tickscol ]
 
@@ -124,12 +102,10 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   print(dim(vertices_h))
   
   # Create mesh
-  #options(rgl.useNULL = FALSE)
   rgl::open3d()
   rgl::par3d("antialias")
   rgl::par3d(windowRect = c(0,0,500,500))
   mesh <- rgl::tmesh3d(vertices=vertices_h, indices=faces_h, material=list(color = col))
-  #mesh <- rgl::tmesh3d(vertices=vertices_h, triangles=faces_h, material=list(color = col))
   # Smooth for better visualization
   mesh <- Rvcg::vcgSmooth(mesh, type = "taubin", iteration = 10, lambda = 0.5, mu = -0.53, delta = 0.1)
   
