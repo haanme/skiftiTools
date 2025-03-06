@@ -1,2 +1,2 @@
-.readthedocs.yaml
-^docs/
+^README\.md$
+^NEWS\.md$
