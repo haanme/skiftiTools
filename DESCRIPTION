@@ -32,5 +32,6 @@ RoxygenNote: 7.2.3
 URL: https://github.com/haanme/skiftiTools
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
