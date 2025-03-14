@@ -1,5 +1,5 @@
 Package: skiftiTools
-Title: Tools and operations for Reading, Writing, Viewing, and Manipulating SKIFTI Files
+Title: Tools and Operations for Reading, Writing, Viewing, and Manipulating SKIFTI Files
 Version: 0.0.1.9000
 Authors@R: 
     c(person("Harri", "Merisaari", "", email = "harri.merisaaari@utu.fi", role = "aut",
