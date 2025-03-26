@@ -19,6 +19,7 @@ library(methods)
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
 #' @param compress bz2/zip/none(default) to select compression method
 #' 
+#' @return filename where Skifti data was written
 #' @importFrom stringr str_detect
 #' @importFrom utils zip
 #' @importFrom methods is
