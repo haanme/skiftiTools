@@ -19,6 +19,7 @@ library(RNifti)
 #' 
 #' @param Skifti_data Intensity data in Nifti format
 #' 
+#' @return Nifti skeleton file for Skifti data
 #' @importFrom RNifti niftiHeader readNifti asNifti
 #' @export
 #'
