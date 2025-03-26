@@ -69,6 +69,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @importFrom abind abind
 #' @importFrom s2dv ColorBar
 #' 
+#' @return No output, as resuts are saved to a png file
 #' @export
 #'
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla") {
