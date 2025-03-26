@@ -14,6 +14,7 @@ library(stringr)
 #' 
 #' @param filename file to read
 #' 
+#' @return Skifti data object
 #' @importFrom stringr str_detect str_replace
 #' @export
 readSkifti <- function(filename){
