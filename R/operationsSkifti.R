@@ -16,6 +16,7 @@ library(methods)
 #' @param Skifti_data Skifti data object
 #' @param volumes selection
 #'
+#' @return Skifti data object of subset
 #' @importFrom methods is
 #' @export
 subset <- function(Skifti_data, volumes){
@@ -40,6 +41,7 @@ subset <- function(Skifti_data, volumes){
 #' @param Skifti_data1 Skifti data object1
 #' @param Skifti_data2 Skifti data object2
 #' 
+#' @return concatenated Skifti data object
 #' @export
 concat <- function(Skifti_data1, Skifti_data2){
   if(!is(Skifti_data1, "Skifti")) {
