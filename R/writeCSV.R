@@ -19,6 +19,7 @@ library(methods)
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
 #' @param sep separator to be used between vales, default=','
 #' 
+#' @return csv filename where output was written
 #' @importFrom methods is
 #' @export
 writeCSV <- function(Skifti_data, filename, overwrite=FALSE, sep=','){
