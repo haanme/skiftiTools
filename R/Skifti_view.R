@@ -58,6 +58,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @param scale scaling for intensity values, tune for better color depth
 #' @param keep_temp TRUE/FALSE(default) to keep temporary png images
 #' @param palette color palette
+#' @param verbose TRUE/FALSE(default), for verbosity
 #'
 #' @importFrom rmarchingcubes contour3d
 #' @importFrom rgl open3d par3d tmesh3d shade3d bgplot3d view3d close3d rgl.snapshot
@@ -72,7 +73,7 @@ get_rot_matrix <- function(axis, angle) {
 #' @return No output, as resuts are saved to a png file
 #' @export
 #'
-save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla") {
+save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla", verbose=FALSE) {
   
   data<-data*scale
   print(paste("Data extreme values for visualization min:", min(data), " max:", max(data), sep=""))
@@ -91,7 +92,9 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   mesh_i <- round(mesh_i)+1
   mesh_i_lim <- range(mesh_i)
   Ticks<-seq(mesh_i_lim[1]*0.99,mesh_i_lim[2]*1.01,length.out = 39)
-  print(paste("Extreme values at surface mesh for visualization min:", mesh_i_lim[1], " max:", mesh_i_lim[2], sep=""))
+  if(verbose) {
+    print(paste("Extreme values at surface mesh for visualization min:", mesh_i_lim[1], " max:", mesh_i_lim[2], sep=""))
+  }
   mesh_i_len <- mesh_i_lim[2] - mesh_i_lim[1] + 1
   colorlut <- hcl.colors(mesh_i_len, palette = palette, alpha = NULL, rev = FALSE, fixup = TRUE)
   col<-colorlut[mesh_i]
