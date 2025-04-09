@@ -26,15 +26,13 @@ library(RNifti)
 Skifti2Nifti <- function(Skifti_data){
   
   if (is.null(Skifti_data)) {
-    warning("`Nifti_data`, was NULL: Nothing to read!\n")
-    return(NULL)
+    stop("`Nifti_data`, was NULL: Nothing to read!\n")
   }
   
   if(Skifti_data$reftype=="filename"){
     Nifti_skeleton<-Skifti_data$refdata
     if (is.null(Nifti_skeleton)) {
-      warning("`Nifti_skeleton`, was NULL: Cannot reconstruct Nifti!\n")
-      return(NULL)
+      stop("`Nifti_skeleton`, was NULL: Cannot reconstruct Nifti!\n")
     }
     mask<-RNifti::readNifti(Nifti_skeleton, internal = FALSE, volumes = NULL)    
     
@@ -57,7 +55,6 @@ Skifti2Nifti <- function(Skifti_data){
     }
     return(ret)
   } else {
-    warning(paste("Non supported skeleton reference type:", Skifti_data$reftype, sep=''))
-    return(NULL)
+    stop(paste("Non supported skeleton reference type:", Skifti_data$reftype, sep=''))
   }
 }
