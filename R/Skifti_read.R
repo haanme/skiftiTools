@@ -29,7 +29,7 @@ readSkifti <- function(filename){
   datatype<-"volume-per-row-ASCII"
   flines<-readLines(filename)
   if(!(flines[1]=="# Skifti")) {
-    print(paste('# Skifti not found at 1st line of ', filename, sep=''))
+    warning(paste('# Skifti not found at 1st line of ', filename, sep=''))
     datatype="binary"
   }
   
