@@ -13,11 +13,12 @@ library(stringr)
 #' Read Skifti data
 #' 
 #' @param filename file to read
+#' @param verbose TRUE/FALSE(default), for verbosity
 #' 
 #' @return Skifti data object
 #' @importFrom stringr str_detect str_replace
 #' @export
-readSkifti <- function(filename){
+readSkifti <- function(filename, verbose=FALSE){
   if(!file(filename)) {
     stop(paste('File ', filename, ' does not exist', sep=''))
   }
@@ -29,7 +30,9 @@ readSkifti <- function(filename){
   datatype<-"volume-per-row-ASCII"
   flines<-readLines(filename)
   if(!(flines[1]=="# Skifti")) {
-    warning(paste('# Skifti not found at 1st line of ', filename, sep=''))
+    if(verbose) {
+      print(paste('# Skifti not found at 1st line of ', filename, sep=''))
+    }
     datatype="binary"
   }
   
