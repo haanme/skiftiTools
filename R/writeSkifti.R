@@ -18,18 +18,21 @@ library(methods)
 #' @param basename basename to write without suffix
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
 #' @param compress bz2/zip/none(default) to select compression method
+#' @param verbose TRUE/FALSE(default), for verbosity
 #' 
 #' @return filename where Skifti data was written
 #' @importFrom stringr str_detect
 #' @importFrom utils zip
 #' @importFrom methods is
 #' @export
-writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none"){
+writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none", verbose=FALSE){
   if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
   }
   if(is.null(Skifti_data$datatype)){
-    print("Datatype was NULL, using ASCII volume-per-row-ASCII")
+    if(verbose) {
+      print("Datatype was NULL, using ASCII volume-per-row-ASCII")
+    }
     Skifti_data$datatype<-"volume-per-row-ASCII"
   }
   if(Skifti_data$datatype=="volume-per-row-ASCII"){
