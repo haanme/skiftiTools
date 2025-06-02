@@ -25,6 +25,7 @@ library(methods)
 #' @importFrom utils zip
 #' @importFrom methods is
 #' @export
+#' @example examples/writeSkifti_examples.R
 writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none", verbose=FALSE){
   if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
@@ -49,9 +50,21 @@ writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none",
     write(paste('#', paste(Skifti_data$xform, collapse = ' '), sep=' '), file = filename, append = TRUE, sep = " ")
     write(paste('#', paste(Skifti_data$version), sep=' '), file = filename, append = TRUE, sep = " ")
     write(paste('#', paste(Skifti_data$datatype), sep=' '), file = filename, append = TRUE, sep = " ")
+    if(!is.null(Skifti_data$labels_data)) {
+        write(paste("LABELS", paste(Skifti_data$labels_data, collapse = " "), collapse = " "), file = filename, append = TRUE, sep = " ")
+    }
     rnames<-rownames(Skifti_data$data)
     for(i in 1:dim(Skifti_data$data)[1]) {
       write(paste(rnames[i], paste(Skifti_data$data[i,], collapse = " "), collapse = " "), file = filename, append = TRUE, sep = " ")
+    }
+    if(!is.null(Skifti_data$mask_coordinates)) {
+        filename_coordinates<-paste(basename, '_mask_coordinates.txt', sep='')
+        if(file(filename_coordinates) & (overwrite==FALSE)) {
+            stop(paste('File ', filename_coordinates, ' exists, but overwrite was not selected', sep=''))
+        }
+        for(i in 1:dim(Skifti_data$mask_coordinates)[1]) {
+            write(paste(Skifti_data$mask_coordinates[i,1], Skifti_data$mask_coordinates[i,2], Skifti_data$mask_coordinates[i,3], sep = " "), file = filename_coordinates, append = TRUE)
+        }
     }
   } else if(Skifti_data$datatype=="binary") {
     filename<-paste(basename, '.rDs', sep='')
@@ -62,6 +75,8 @@ writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none",
   } else {
     stop(paste('Unrecognised datatype in skifti object:', Skifti_data$datatype, sep=''))
   }
+  
+  # Handle requested file compression
   if(str_detect(compress, "none")) {
       # no action
   } else if(str_detect(compress, "bz2")) {

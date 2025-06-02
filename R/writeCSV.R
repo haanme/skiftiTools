@@ -22,6 +22,7 @@ library(methods)
 #' @return csv filename where output was written
 #' @importFrom methods is
 #' @export
+#' @example examples/writeCSV_examples.R
 writeCSV <- function(Skifti_data, filename, overwrite=FALSE, sep=','){
   if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    

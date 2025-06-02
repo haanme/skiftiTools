@@ -72,6 +72,7 @@ get_rot_matrix <- function(axis, angle) {
 #' 
 #' @return No output, as resuts are saved to a png file
 #' @export
+#' @example examples/Skifti_view_examples.R
 #'
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla", verbose=FALSE) {
   
