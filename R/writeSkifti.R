@@ -41,6 +41,9 @@ writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none",
     if(file(filename) & (overwrite==FALSE)) {
       stop(paste('File ', filename, ' exists, but overwrite was not selected', sep=''))
     }
+    if(verbose) {
+        print(paste('Writing data as ASCII into ', filename, sep=''))
+    }
     file.create(filename, showWarnings = FALSE)
     write(paste('#', paste(class(Skifti_data)), sep=' '), file = filename, append = TRUE, sep = " ")
     write(paste('#', paste(Skifti_data$reftype), sep=' '), file = filename, append = TRUE, sep = " ")
@@ -57,33 +60,50 @@ writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none",
     for(i in 1:dim(Skifti_data$data)[1]) {
       write(paste(rnames[i], paste(Skifti_data$data[i,], collapse = " "), collapse = " "), file = filename, append = TRUE, sep = " ")
     }
-    if(!is.null(Skifti_data$mask_coordinates)) {
-        filename_coordinates<-paste(basename, '_mask_coordinates.txt', sep='')
-        if(file(filename_coordinates) & (overwrite==FALSE)) {
-            stop(paste('File ', filename_coordinates, ' exists, but overwrite was not selected', sep=''))
-        }
-        for(i in 1:dim(Skifti_data$mask_coordinates)[1]) {
-            write(paste(Skifti_data$mask_coordinates[i,1], Skifti_data$mask_coordinates[i,2], Skifti_data$mask_coordinates[i,3], sep = " "), file = filename_coordinates, append = TRUE)
-        }
-    }
   } else if(Skifti_data$datatype=="binary") {
     filename<-paste(basename, '.rDs', sep='')
     if(file(filename) & (overwrite==FALSE)) {
       stop(paste('File ', filename, ' exists, but overwrite was not selected', sep=''))
     }
+    if(verbose) {
+        print(paste('Writing data as binary (R data format) into ', filename, sep=''))
+    }
     saveRDS(Skifti_data, file=filename)
   } else {
     stop(paste('Unrecognised datatype in skifti object:', Skifti_data$datatype, sep=''))
   }
+
+  # Write mask coordinates if they exists in skifti object
+  if(!is.null(Skifti_data$mask_coordinates)) {
+      filename_coordinates<-paste(basename, '_mask_coordinates.txt', sep='')
+      if(file(filename_coordinates) & (overwrite==FALSE)) {
+          stop(paste('File ', filename_coordinates, ' exists, but overwrite was not selected', sep=''))
+      }
+      if(verbose) {
+          print(paste('Writing mask coordinates into ', filename_coordinates, sep=''))
+      }
+      for(i in 1:dim(Skifti_data$mask_coordinates)[1]) {
+          write(paste(Skifti_data$mask_coordinates[i,1], Skifti_data$mask_coordinates[i,2], Skifti_data$mask_coordinates[i,3], sep = " "), file = filename_coordinates, append = TRUE)
+      }
+  }
   
   # Handle requested file compression
   if(str_detect(compress, "none")) {
-      # no action
+    if(verbose) {
+      print("No compression applied to output")
+    }
+    # no action
   } else if(str_detect(compress, "bz2")) {
+    if(verbose) {
+      print("bzip2 compression applied to output")
+    }
     R.utils::bzip2(filename, paste(basename,'.bz2',sep=''))
     file.remove(filename)
     filename<-paste(basename,'.bz2',sep='')
   } else if(str_detect(compress, "zip")) {
+    if(verbose) {
+      print("zip compression applied to output")
+    }
     zip(zipfile = paste(basename,'.zip',sep=''), files = filename, flags="-j")
     file.remove(filename)
     filename<-paste(basename,'.zip',sep='')

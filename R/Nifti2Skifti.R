@@ -133,7 +133,7 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=
   labels_data<-NULL
   if (!is.null(Nifti_labels)) {
       if(verbose) {
-          print(paste("Reading " , Nifti_labels, sep=""))
+          print(paste("Reading " , Nifti_labels, " as label file", sep=""))
       }
       labels<-RNifti::readNifti(Nifti_labels, internal = FALSE, volumes = NULL)
       rowdata<-labels[mask>0]
@@ -143,7 +143,7 @@ Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=
   
   data<-t(data)
   rownames(data)<-names
-  skifti<-list(reftype="filename", refdata=Nifti_skeleton, dim=mask_hdr$dim, pixdim=mask_hdr$pixdim, xform=rbind(mask_hdr$srow_x,mask_hdr$srow_y,mask_hdr$srow_z), datatype=NULL, version='0.1', data=data)
+  skifti<-list(reftype="filename", refdata=Nifti_skeleton, dim=mask_hdr$dim, pixdim=mask_hdr$pixdim, xform=rbind(mask_hdr$srow_x,mask_hdr$srow_y,mask_hdr$srow_z), mask_coordinates=mask_coordinates, datatype=NULL, version='0.1', data=data)
   class(skifti)<-"Skifti"
   return(skifti)
 }
