@@ -18,7 +18,12 @@ library(Rvcg)
 library(oce)
 library(s2dv)
 
-# Function to rotate view
+#' Function to rotate view
+#' 
+#' @param axis axis of rotation
+#' @param angle angle of rotation in radians
+#' 
+#' @return 4x4 rotation matrix
 get_rot_matrix <- function(axis, angle) {
   r<-diag(4)
   if (axis == 1) {
