@@ -97,15 +97,22 @@ writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none",
     if(verbose) {
       print("bzip2 compression applied to output")
     }
-    R.utils::bzip2(filename, paste(basename,'.bz2',sep=''))
-    file.remove(filename)
+    if(overwrite & file.exists(paste(basename,'.bz2',sep=''))) {
+      file.remove(paste(basename,'.bz2',sep=''))
+    }
+    R.utils::bzip2(filename, paste(basename,'.bz2',sep=''), overwrite=overwrite)
+    if(file.exists(filename)) {
+      file.remove(filename, showWarnings = FALSE)
+    }
     filename<-paste(basename,'.bz2',sep='')
   } else if(str_detect(compress, "zip")) {
     if(verbose) {
       print("zip compression applied to output")
     }
     zip(zipfile = paste(basename,'.zip',sep=''), files = filename, flags="-j")
-    file.remove(filename)
+    if(file.exists(filename)) {
+      file.remove(filename, showWarnings = FALSE)
+    }
     filename<-paste(basename,'.zip',sep='')
   } else {
     stop(paste('Unrecognised compress method:', compress, sep=''))

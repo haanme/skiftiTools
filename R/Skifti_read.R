@@ -24,7 +24,10 @@ readSkifti <- function(filename, verbose=FALSE){
     stop(paste('File ', filename, ' does not exist', sep=''))
   }
   if(str_detect(filename,'.bz2')){
-    R.utils::bunzip2(filename, str_replace(filename,'.bz2',''))
+    if(file.exists(str_replace(filename,'.bz2',''))) {
+      file.remove(str_replace(filename,'.bz2',''))
+    }    
+    R.utils::bunzip2(filename, str_replace(filename,'.bz2',''), overwrite=TRUE)
     filename<-str_replace(filename,'.bz2','')
   }  
   
