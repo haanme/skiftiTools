@@ -52,9 +52,19 @@ concat <- function(Skifti_data1, Skifti_data2){
   if(!is(Skifti_data2, "Skifti")) {
     stop(paste('Skifti class expected for parameter 2, but', class(Skifti_data2), 'was given',sep=''))    
   }
-  if(!(dim(Skifti_data1$data)[2] == dim(Skifti_data2$data)[2])){
-    stop(paste('Parameter 1 mask size ', dim(Skifti_data1$data)[2], ' and parameter 2 mask size ', dim(Skifti_data2$data)[2], ' do not match', sep=''))
-  }  
+  if(is.null(dim(Skifti_data1$data))) {
+    dim1<-length(Skifti_data1$data)
+  } else {
+    dim1<-dim(Skifti_data1$data)[2]
+  }
+  if(is.null(dim(Skifti_data2$data))) {
+    dim2<-length(Skifti_data2$data)
+  } else {
+    dim2<-dim(Skifti_data2$data)[2]
+  }
+  if(!(dim1 == dim2)){
+    stop(paste('Parameter 1 mask size ', dim1, ' and parameter 2 mask size ', dim2, ' do not match', sep=''))
+  }
   Skifti_data1$data<-rbind(Skifti_data1$data, Skifti_data2$data)
   return(Skifti_data1)
 }

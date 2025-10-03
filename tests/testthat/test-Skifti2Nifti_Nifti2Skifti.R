@@ -35,7 +35,7 @@ test_that("multiplication works", {
 
   # Create Skifti
   data_Nifti2<-Skifti2Nifti(data_Skifti)
-  RNifti::writeNifti(data_Nifti2, "data_Nifti.nii.gz", template = NULL, datatype = "auto")
+  RNifti::writeNifti(data_Nifti2[[1]], "data_Nifti.nii.gz", template = NULL, datatype = "auto")
   data_Nifti2<-RNifti::readNifti("data_Nifti.nii.gz", internal = TRUE, volumes = NULL)
   
   expect_equal(array(data_Nifti), array(data_Nifti2))

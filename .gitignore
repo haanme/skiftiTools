@@ -1,5 +1,6 @@
 .DS_Store
 *.tar.gz
 *.nii
+*.nii.gz
 Skifti_test*
 *.csv
