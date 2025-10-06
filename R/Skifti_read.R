@@ -29,10 +29,12 @@ readSkifti <- function(filename, verbose=FALSE){
     }    
     R.utils::bunzip2(filename, str_replace(filename,'.bz2',''), overwrite=TRUE)
     filename<-str_replace(filename,'.bz2','')
-  }  
-  
+  }
+
   datatype<-"volume-per-row-ASCII"
-  flines<-readLines(filename)
+  con <- file(filename, "r", blocking = TRUE)
+  flines<-readLines(con, n = 1)
+  close(con)
   if(!(flines[1]=="# Skifti")) {
     if(verbose) {
       print(paste('# Skifti not found at 1st line of ', filename, sep=''))
@@ -41,6 +43,9 @@ readSkifti <- function(filename, verbose=FALSE){
   }
   
   if(datatype=="volume-per-row-ASCII") {
+    con <- file(filename, "r", blocking = TRUE)
+    flines<-readLines(con)
+    close(con)    
     Skifti_data<-list()
     if(flines[2]=="# filename") {
       Skifti_data$reftype<-"filename"

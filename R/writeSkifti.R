@@ -76,7 +76,7 @@ writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none",
   # Write mask coordinates if they exists in skifti object
   if(!is.null(Skifti_data$mask_coordinates)) {
       filename_coordinates<-paste(basename, '_mask_coordinates.txt', sep='')
-      if(file(filename_coordinates) & (overwrite==FALSE)) {
+      if(file.exists(filename_coordinates) & (overwrite==FALSE)) {
           stop(paste('File ', filename_coordinates, ' exists, but overwrite was not selected', sep=''))
       }
       if(verbose) {

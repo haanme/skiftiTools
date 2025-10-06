@@ -4,3 +4,5 @@
 *.nii.gz
 Skifti_test*
 *.csv
+data_Skifti_mask_coordinates.txt
+

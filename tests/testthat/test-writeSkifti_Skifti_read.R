@@ -1,4 +1,4 @@
-test_that("multiplication works", {
+test_that("Skifti read and write", {
   source('../../R/Nifti2Skifti.R')
   source('../../R/Skifti_read.R')
   source('../../R/writeSkifti.R')
@@ -36,4 +36,5 @@ test_that("multiplication works", {
   expect_equal(Skifti_data$datatype, "volume-per-row-ASCII")
   expect_equal(Skifti_data$version, "0.1")
   expect_equal(Skifti_data$data, matrix(c(6,7,8), nrow=1, ncol=3, byrow = TRUE, dimnames = list("vol1")))  
+  expect_equal(data_Skifti$data, Skifti_data$data)
 })
