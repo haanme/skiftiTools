@@ -10,3 +10,4 @@ library(testthat)
 library(skiftiTools)
 
 test_check("skiftiTools")
+test_local()
