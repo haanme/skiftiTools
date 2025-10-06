@@ -20,6 +20,7 @@ library(s2dv)
 
 #' Function to rotate view
 #' 
+#' @noRd
 #' @param axis axis of rotation
 #' @param angle angle of rotation in radians
 #' 
@@ -49,7 +50,6 @@ get_rot_matrix <- function(axis, angle) {
   }
 }
 
-
 #' Create png from mask and data in Nifti format
 #' 
 #' Skeleton mask and corresponding image intensity data must be in Nifti format.
@@ -76,11 +76,9 @@ get_rot_matrix <- function(axis, angle) {
 #' @importFrom s2dv ColorBar
 #' 
 #' @return No output, as resuts are saved to a png file
-#' @export
 #' @example examples/Skifti_view_examples.R
-#'
+#' @export
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla", verbose=FALSE) {
-  
   data<-data*scale
   print(paste("Data extreme values for visualization min:", min(data), " max:", max(data), sep=""))
   
@@ -106,7 +104,7 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   col<-colorlut[mesh_i]
   Tickscol <- seq(0.0, mesh_i_lim[2]-mesh_i_lim[1],length.out = 39)
   Tickscol <- colorlut[ Tickscol ]
-
+  
   vertices_h <- t(cbind(contour_shape$vertices, rep(1, nrow(contour_shape$vertices))))
   faces_h <- t(contour_shape$triangles)
   print(dim(vertices_h))
@@ -121,7 +119,7 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   
   # Draw the mesh.
   mesh_col <- rgl::shade3d(mesh, meshColor = "vertices", specular="black")
-
+  
   # Create views
   options(rgl.useNULL = FALSE)
   um<-list()
@@ -135,11 +133,11 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
     rgl::view3d(userMatrix=um[[i]], fov = 60, zoom = 1.0, interactive = FALSE, type = "modelviewpoint")
     rgl.snapshot(paste('3dplot_', i, '.png',sep=''), fmt = 'png')
   }
-
+  
   rgl::clear3d()
   rgl::bgplot3d(s2dv::ColorBar(brks=Ticks/scale, cols=Tickscol, 
-                         title=legend_title, title_scale = 4.0, 
-                         tick_scale = 0.0, label_digits=3, label_scale=4.0, lwd=8.0))
+                               title=legend_title, title_scale = 4.0, 
+                               tick_scale = 0.0, label_digits=3, label_scale=4.0, lwd=8.0))
   rgl::rgl.snapshot(paste('3dplot_', 7, '.png',sep=''), fmt = 'png')
   rgl::close3d()
   
@@ -174,5 +172,6 @@ save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep
   if(keep_temp==FALSE) {
     file.remove(paste('3dplot_', 7, '.png',sep=''))
   }
-  writePNG(pngdata, target=paste(output), metadata=sessionInfo())
+  writePNG(pngdata, target=paste(output), metadata=sessionInfo()) 
 }
+
