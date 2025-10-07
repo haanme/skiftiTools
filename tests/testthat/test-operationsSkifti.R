@@ -1,6 +1,5 @@
 test_that("multiplication works", {
-  source('../../R/Nifti2Skifti.R')
-  source('../../R/operationsSkifti.R')
+  library(skiftiTools)
   library(RNifti)
   data<-array(0,dim=list(10,10,10,10))
   for(t in 1:10) {
@@ -35,4 +34,7 @@ test_that("multiplication works", {
   m<-matrix(c(6,10,15,7,11,16,8,12,17), nrow=3, ncol=3)
   rownames(m)<-c("vol1", "vol5", "")
   expect_equal(data_Skifti_concat$data, m)
+  
+  file.remove("data_Nifti.nii.gz")
+  file.remove("data_skeleton_Nifti.nii.gz")  
 })

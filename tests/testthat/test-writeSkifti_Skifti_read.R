@@ -1,7 +1,5 @@
 test_that("Skifti read and write", {
-  source('../../R/Nifti2Skifti.R')
-  source('../../R/Skifti_read.R')
-  source('../../R/writeSkifti.R')
+  library(skiftiTools)
   library(RNifti)
   data<-array(0,dim=list(10,10,10,10))
   for(t in 1:10) {
@@ -37,4 +35,7 @@ test_that("Skifti read and write", {
   expect_equal(Skifti_data$version, "0.1")
   expect_equal(Skifti_data$data, matrix(c(6,7,8), nrow=1, ncol=3, byrow = TRUE, dimnames = list("vol1")))  
   expect_equal(data_Skifti$data, Skifti_data$data)
+  
+  file.remove("data_Nifti.nii.gz")
+  file.remove("data_skeleton_Nifti.nii.gz")  
 })

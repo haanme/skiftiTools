@@ -20,6 +20,7 @@ library(RNifti)
 #' @param Skifti_data Intensity data in Nifti format
 #' @param filename file to read'
 #' @param overwrite TRUE/FALSE(default) to overwrite existing data
+#' @param sep file separator to be written default ';'
 #' 
 #' @return CSV filename
 #' @importFrom RNifti readNifti

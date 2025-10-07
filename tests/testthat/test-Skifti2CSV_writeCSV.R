@@ -1,6 +1,5 @@
 test_that("Skifti2CSV works", {
-  source('../../R/Nifti2Skifti.R')
-  source('../../R/Skifti2CSV.R')
+  library(skiftiTools)
   library(RNifti)
   data<-array(0,dim=list(10,10,10,10))
   for(t in 1:10) {
@@ -33,4 +32,8 @@ test_that("Skifti2CSV works", {
   rownames(df2)<-NULL
   colnames(df2)<-NULL
   expect_equal(df1, df2)
+  
+  file.remove("data_Skifti.csv")
+  file.remove("data_Nifti.nii.gz")
+  file.remove("data_skeleton_Nifti.nii.gz")  
 })

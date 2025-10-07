@@ -1,6 +1,5 @@
-test_that("multiplication works", {
-  source('../../R/Skifti2Nifti.R')
-  source('../../R/Nifti2Skifti.R')
+test_that("Skifti2Nifti and Nifti2Skifti works", {
+  library(skiftiTools)
   library(RNifti)
   data<-array(0,dim=list(10,10,10,10))
   for(t in 1:10) {
@@ -37,6 +36,8 @@ test_that("multiplication works", {
   data_Nifti2<-Skifti2Nifti(data_Skifti)
   RNifti::writeNifti(data_Nifti2[[1]], "data_Nifti.nii.gz", template = NULL, datatype = "auto")
   data_Nifti2<-RNifti::readNifti("data_Nifti.nii.gz", internal = TRUE, volumes = NULL)
-  
   expect_equal(array(data_Nifti), array(data_Nifti2))
+  
+  file.remove("data_Nifti.nii.gz")
+  file.remove("data_skeleton_Nifti.nii.gz")
 })
