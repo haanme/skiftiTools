@@ -36,6 +36,4 @@ test_that("Skifti read and write", {
   expect_equal(Skifti_data$data, matrix(c(6,7,8), nrow=1, ncol=3, byrow = TRUE, dimnames = list("vol1")))  
   expect_equal(data_Skifti$data, Skifti_data$data)
   
-  file.remove("data_Nifti.nii.gz")
-  file.remove("data_skeleton_Nifti.nii.gz")  
 })

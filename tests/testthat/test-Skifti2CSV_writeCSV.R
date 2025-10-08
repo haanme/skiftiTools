@@ -33,7 +33,4 @@ test_that("Skifti2CSV works", {
   colnames(df2)<-NULL
   expect_equal(df1, df2)
   
-  file.remove("data_Skifti.csv")
-  file.remove("data_Nifti.nii.gz")
-  file.remove("data_skeleton_Nifti.nii.gz")  
 })

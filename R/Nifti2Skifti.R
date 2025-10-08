@@ -27,7 +27,7 @@ library(RNifti)
 #' @return skifti object with default rownames as vol1, vol2 .... volN as indexes from the nifti data
 #' @importFrom RNifti niftiHeader readNifti
 #' @export
-#' @example examples/Nifti2Skifti_examples.R
+#' @example man/examples/Nifti2Skifti_examples.R
 #'
 Nifti2Skifti <- function(Nifti_data=NULL, Nifti_skeleton=NULL, selected_volumes=NULL, Nifti_labels=NULL, write_coordinates=FALSE, verbose=FALSE) {
 

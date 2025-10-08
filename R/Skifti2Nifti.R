@@ -22,7 +22,7 @@ library(RNifti)
 #' @return Nifti skeleton file for Skifti data
 #' @importFrom RNifti niftiHeader readNifti asNifti
 #' @export
-#' @example examples/Nifti2Skifti_examples.R
+#' @example man/examples/Nifti2Skifti_examples.R
 #'
 Skifti2Nifti <- function(Skifti_data){
   

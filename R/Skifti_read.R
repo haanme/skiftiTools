@@ -18,7 +18,7 @@ library(stringr)
 #' @return Skifti data object
 #' @importFrom stringr str_detect str_replace
 #' @export
-#' @example examples/Nifti2Skifti_examples.R
+#' @example man/examples/Nifti2Skifti_examples.R
 readSkifti <- function(filename, verbose=FALSE){
   if(!file(filename)) {
     stop(paste('File ', filename, ' does not exist', sep=''))

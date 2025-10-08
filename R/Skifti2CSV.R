@@ -25,7 +25,7 @@ library(RNifti)
 #' @return CSV filename
 #' @importFrom RNifti readNifti
 #' @export
-#' @example examples/Skifti2CSV_examples.R
+#' @example man/examples/Skifti2CSV_examples.R
 #'
 Skifti2CSV <- function(Skifti_data, filename, overwrite=FALSE, sep=';'){
   if(!is(Skifti_data, "Skifti")) {

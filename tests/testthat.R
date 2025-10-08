@@ -8,6 +8,8 @@
 
 library(testthat)
 library(skiftiTools)
-
+Sys.setenv('_R_CHECK_SYSTEM_CLOCK_' = 0)
 test_check("skiftiTools")
-test_local()
+file.remove("../data_Skifti.csv")
+file.remove("../data_Nifti.nii.gz")
+file.remove("../data_skeleton_Nifti.nii.gz")  

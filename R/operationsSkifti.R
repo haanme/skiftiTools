@@ -19,7 +19,7 @@ library(methods)
 #' @return Skifti data object of subset
 #' @importFrom methods is
 #' @export
-#' @example examples/operationsSkifti_examples.R
+#' @example operationsSkifti_examples.R
 subset <- function(Skifti_data, volumes){
   if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
@@ -44,7 +44,7 @@ subset <- function(Skifti_data, volumes){
 #' 
 #' @return concatenated Skifti data object
 #' @export
-#' @example examples/operationsSkifti_examples.R
+#' @example man/examples/operationsSkifti_examples.R
 concat <- function(Skifti_data1, Skifti_data2){
   if(!is(Skifti_data1, "Skifti")) {
     stop(paste('Skifti class expected for parameter 1, but', class(Skifti_data1), 'was given',sep=''))    

@@ -76,7 +76,6 @@ get_rot_matrix <- function(axis, angle) {
 #' @importFrom s2dv ColorBar
 #' 
 #' @return No output, as resuts are saved to a png file
-#' @example examples/Skifti_view_examples.R
 #' @export
 save_skeleton <- function(mask, data, img_hdr, output, legend_title, scale, keep_temp=FALSE, palette="lajolla", verbose=FALSE) {
   data<-data*scale

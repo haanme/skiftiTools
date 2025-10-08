@@ -37,9 +37,14 @@ data_skeleton[5,5,5]<-1
 data_skeleton[6,6,6]<-1
 data_skeleton[7,7,7]<-1
 data_skeleton_Nifti<-RNifti::retrieveNifti(data_skeleton)
-RNifti::writeNifti(data_skeleton_Nifti, "data_skeleton_Nifti.nii.gz", template = NULL, datatype = "auto")
+RNifti::writeNifti(data_skeleton_Nifti, "data_skeleton_Nifti.nii.gz", datatype = "auto")
 
-data_Skifti<-Nifti2Skifti(Nifti_data="data_Nifti.nii.gz", Nifti_skeleton="data_skeleton_Nifti.nii.gz", selected_volumes=1:10, Nifti_labels=NULL, write_coordinates=TRUE, verbose=FALSE)
+data_Skifti<-Nifti2Skifti(Nifti_data="data_Nifti.nii.gz", 
+                          Nifti_skeleton="data_skeleton_Nifti.nii.gz", 
+                          selected_volumes=1:10, 
+                          Nifti_labels=NULL, 
+                          write_coordinates=TRUE, 
+                          verbose=FALSE)
 
 data_Skifti_subset<-subset(data_Skifti, c(1,5,10))
 m<-matrix(c(6,10,15,7,11,16,8,12,17), nrow=3, ncol=3)

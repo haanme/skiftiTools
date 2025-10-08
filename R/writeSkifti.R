@@ -25,7 +25,7 @@ library(methods)
 #' @importFrom utils zip
 #' @importFrom methods is
 #' @export
-#' @example examples/Nifti2Skifti_examples.R
+#' @example man/examples/Nifti2Skifti_examples.R
 writeSkifti <- function(Skifti_data, basename, overwrite=FALSE, compress="none", verbose=FALSE){
   if(!is(Skifti_data, "Skifti")) {
     stop(paste('Skifti class expected, but', class(Skifti_data), 'was given',sep=''))    
