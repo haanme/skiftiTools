@@ -30,7 +30,7 @@ test_that("multiplication works", {
   
   data_Skifti_subset1<-subset(data_Skifti, c(1,5))
   data_Skifti_subset2<-subset(data_Skifti, c(10))  
-  data_Skifti_concat<-concat(data_Skifti_subset1, data_Skifti_subset2)
+  data_Skifti_concat<-skiftiTools::concat(data_Skifti_subset1, data_Skifti_subset2)
   m<-matrix(c(6,10,15,7,11,16,8,12,17), nrow=3, ncol=3)
   rownames(m)<-c("vol1", "vol5", "")
   expect_equal(data_Skifti_concat$data, m)

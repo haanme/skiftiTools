@@ -1,9 +1,0 @@
-# Skifti
-# filename
-# data_skeleton_Nifti.nii.gz
-# 3 10 10 10 1 1 1 1
-# 0 1 1 1 0 0 0 0
-# 0 0 0 0 0 0 0 0 0 0 0 0
-# 0.1
-# volume-per-row-ASCII
-vol1 6 7 8
