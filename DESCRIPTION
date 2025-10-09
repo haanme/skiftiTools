@@ -1,6 +1,6 @@
 Package: skiftiTools
 Title: Tools and Operations for Reading, Writing, Viewing, and Manipulating SKIFTI Files
-Version: 0.0.1.9000
+Version: 0.1.0
 Authors@R: 
     c(person("Harri", "Merisaari", "", email = "harri.merisaaari@utu.fi", role = "aut",
            comment = c(ORCID = "0000-0002-8515-5399")),
@@ -13,7 +13,7 @@ Description: SKIFTI files contain brain imaging data in coordinates across Tract
     "concatenating", and using data as data.frame for R statistical functions. The SKIFTI data is structured for convenient access to the data and metadata,
     and includes support for visualizations. For more information see Merisaari et al. (2024) <https://doi.org/10.57736/87d2-0608>.
 Depends: R (>= 4.2.0)
-License: GPL-3 + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 Imports:
   RNifti,
@@ -34,5 +34,4 @@ Suggests:
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: knitr
 Config/testthat/edition: 3
