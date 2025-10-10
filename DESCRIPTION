@@ -11,7 +11,7 @@ Description: SKIFTI files contain brain imaging data in coordinates across Tract
     'skiftiTools' provides a unified environment for reading, writing, 
     visualizing and manipulating SKIFTI-format data. It supports the "subsetting", 
     "concatenating", and using data as data.frame for R statistical functions. The SKIFTI data is structured for convenient access to the data and metadata,
-    and includes support for visualizations. For more information see Merisaari et al. (2024) <https://doi.org/10.57736/87d2-0608>.
+    and includes support for visualizations. For more information see Merisaari et al. (2024) <doi:10.57736/87d2-0608>.
 Depends: R (>= 4.2.0)
 License: GPL-3
 Encoding: UTF-8
